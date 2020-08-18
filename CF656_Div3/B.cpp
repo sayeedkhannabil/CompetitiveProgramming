@@ -4,33 +4,80 @@ using namespace std;
 int main()
 {
 	
-	//freopen("input.txt", "r", stdin);
+	freopen("input.txt", "r", stdin);
 	//freopen("output.txt", "w", stdout);
 	
-	int t;
-	cin >> t;
+	int testcase;
+	cin >> testcase;
 	
-	while (t--) {
+	while (testcase--) {
 		int n;
 		cin >> n;
 		
-		int len = n * 2;
+		int a[n];
 		
-		int a[len + 1];
-		memset(a, 0, sizeof(a));
-		
-		for (int i = 0; i < len; i++) {
-			int temp;
-			cin >> temp;
-			
-			if(a[temp] == 0) {
-				cout << temp << " ";
-				a[temp]++;
-			}
-			
+		for (int i = 0; i < n; i++) {
+			cin >> a[n];
 		}
 		
-		cout << endl;
+		int left = 0;
+		int right = n - 1;
+		
+		int curr = -1;
+		
+		while (left < right) {
+			if (curr == -1) {
+				if (a[left] < a[right]) {
+					curr = a[left];
+					left++;
+				}
+				
+				else {
+					curr = a[right];
+					right--;
+				}
+			}
+			
+			else {
+				
+				if (a[left] < a[right]) {
+					if (curr <= a[left]) {
+						curr = a[left];
+						left++;
+					}
+					
+					else if (curr <= a[right]) {
+						curr = a[right];
+						right--;
+					}
+					
+					else {
+						break;	
+					}
+					
+				}
+				
+				else {
+					if (curr <= a[right]) {
+						curr = a[right];
+						right--;
+					}
+					
+					else if (curr <= a[left]) {
+						curr = a[left];
+						left++;
+					}
+					
+					else {
+						break;
+					}
+					
+				}
+				
+			}
+		}
+		
+		cout << right - left << endl;
 	}
 	
 	return 0;
